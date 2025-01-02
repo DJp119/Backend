@@ -2,24 +2,27 @@
 const express = require("express");
 const app = express();
 
-//PORt 
+//PORt find krna h 
 require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
-//middleware 
+//middleware add krne h 
 app.use(express.json());
 const fileupload = require("express-fileupload");
-app.use(fileupload());
+app.use(fileupload({
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
+}));
 
-//db 
+//db se connect krnah 
 const db = require("./config/database");
 db.connect();
 
-//cloud 
+//cloud se connect krna h 
 const cloudinary = require("./config/cloudinary");
 cloudinary.cloudinaryConnect();
 
-//api route mount 
+//api route mount krna h 
 const Upload = require("./routes/FileUpload");
 app.use('/api/v1/upload', Upload);
 
